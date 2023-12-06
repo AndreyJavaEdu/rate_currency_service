@@ -29,7 +29,7 @@ public class CurService {
         this.client = client;
     }
 
-    //Метод получения списка курса валюты в зависимости от типа валюты (код валюты)
+    //Метод получения списка курса валюты в зависимости от типа валюты (код валюты - EUR, USD...) из Кэша
     public BigDecimal requestByCurrencyCode(String currencyCode) {
 
         try {

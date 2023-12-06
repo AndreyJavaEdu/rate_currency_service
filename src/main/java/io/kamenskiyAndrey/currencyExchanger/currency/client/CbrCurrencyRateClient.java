@@ -1,5 +1,7 @@
 package io.kamenskiyAndrey.currencyExchanger.currency.client;
 
+import io.kamenskiyAndrey.currencyExchanger.currency.config.CurrencyClientConfig;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -11,13 +13,16 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 @Component
+@RequiredArgsConstructor
 public class CbrCurrencyRateClient implements CurrencyDateHttpClient {
     private static final String DATE_PATTERN = "dd/MM/yyyy";
     private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern(DATE_PATTERN);
 
+    private final CurrencyClientConfig clientConfig;
+
     @Override
     public String requestByDate(LocalDate date) {
-        var baseUrl = "https://cbr.ru/scripts/XML_daily.asp"; // первичный адрес с ЦБР
+        var baseUrl = clientConfig.getUrl(); // первичный адрес с ЦБР
         var client = HttpClient.newHttpClient(); //создали самого киента
         var url = buildUrlRequest(baseUrl, date);  //формируем url уже с запросами на конкретную дату
 
